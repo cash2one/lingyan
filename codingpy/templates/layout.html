@@ -45,6 +45,7 @@
     {% endblock head_extend %}
 
     {% block analytics %}
+        {# 避免干扰codingpy站点统计信息
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -73,6 +74,7 @@ var _hmt = _hmt || [];
     enable_page_level_ads: true
   });
 </script>
+         #}
 
     {% endblock analytics %}
 

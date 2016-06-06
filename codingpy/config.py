@@ -65,7 +65,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') \
-        or "postgresql://vagrant:vagrant@localhost/codingpy" or \
+        or "mysql+pymysql://codingpy:codingpy2016@108.61.182.93:3306/codingpy" or \
         'sqlite:///%s' % os.path.join(basedir, 'data_dev_sqlite.db')
 
     @classmethod
@@ -78,7 +78,7 @@ class ProductionConfig(Config):
     DEBUG = False
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or \
-        "postgresql://earlgrey:earlgrey@localhost/codingpy"
+        "mysql+pymysql://codingpy:codingpy2016@108.61.182.93:3306/codingpy"
 
     @classmethod
     def init_app(cls, app):

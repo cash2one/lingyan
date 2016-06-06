@@ -48,7 +48,8 @@ def markitup(text):
     #     _flag = Setting.get('codehilite', False) and True
     # except:
     #     _flag = False
-    return markdown_filter(text, codehilite=True)
+    markup = markdown_filter(text, codehilite=True)
+    return str(markup)
 
 
 def format_time(datetime_object):

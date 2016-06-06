@@ -4,7 +4,13 @@
 import logging
 import datetime
 from functools import wraps
-from urllib.parse import quote
+
+try:
+    # python3
+    from urllib.parse import quote
+except:
+    # python2
+    from urllib import quote
 
 from flask import current_app, request, redirect, url_for
 # from flask.ext.bootstrap import Bootstrap
