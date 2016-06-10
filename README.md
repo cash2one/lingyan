@@ -83,6 +83,82 @@ python manage.py runserver
 
 
 
+# Deploy on Ubuntu Server
+
+## Prepare
+
+#### create User
+```bash
+
+# useradd -m -d /home/flask -s /bin/bask flask
+# passwd flask
+# sudo adduser flask sudo
+
+
+```
+
+#### Create virtualenv
+
+```bash
+# pip install --upgrade virtualenv
+# pip install --upgrade pip
+# apt-get upgrade python3
+
+# virtualenv -p python3 flaskenv
+# source flaskenv/bin/activate
+
+# mkdir source
+# cd source
+# git clone https://github.com/yongli82/codingpy.git
+# cd codingpy
+# pip install -r requirements.txt
+```
+
+#### test running
+
+```
+# python manage.py runserver
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+At another terminal
+
+```
+# curl http://127.0.0.1:5000
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+ 编程派 | Coding Python
+ ......
+ ......
+```
+
+#### Link to Gunicore and Nginx 
+
+Gunicore and Nginx already installed and running for other django projects
+
+
+```
+gunicorn --bind 0.0.0.0:8000 wsgi
+```
+
+
+```
+$ sudo supervisorctl reload  
+$ sudo supervisorctl start codingpy
+```
+
+
+
+
+
+
+
+
+
 
 
 
