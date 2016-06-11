@@ -65,7 +65,7 @@ def create_app(config_name):
 
 
 def register_routes(app):
-    from .controllers import site, account
+    from .controllers import site, account, wechat_handler
 
     app.register_blueprint(site.bp, url_prefix='')
     app.register_blueprint(account.bp, url_prefix='/account')

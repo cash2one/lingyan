@@ -269,6 +269,8 @@ cache = CodingpyCache()
 bcrypt = Bcrypt()
 wechat = WeChat()
 
+
+
 login_manager = LoginManager()
 
 
