@@ -10,6 +10,8 @@ __pycache__/
 
 # socks
 *.sock
+*.pid
+
 
 # Distribution / packaging
 .Python
@@ -63,14 +65,19 @@ coverage.xml
 *.pot
 
 # Django stuff:
-*.log
 
 # Sphinx documentation
 docs/_build/
-*.sock
 
 
 # PyBuilder
 target/
+
+# Ide
 venv/
 .idea/
+
+# local
+local_bashrc
+local_settings.py
+local_config.py

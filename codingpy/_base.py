@@ -10,7 +10,7 @@ from flask_wtf.csrf import CsrfProtect
 # from flask.ext.login import logout_user, current_user
 
 from .models import AnonymousUser
-from .ext import (db, moment, cache, login_manager, bcrypt)
+from .ext import (db, moment, cache, login_manager, bcrypt, wechat)
 from .config import config
 from .admins import admin
 
@@ -35,6 +35,7 @@ def create_app(config_name):
     cache.init_app(app)
     bcrypt.init_app(app)
     admin.init_app(app)
+    wechat.init_app(app)
 
     register_managers(app)
     register_routes(app)

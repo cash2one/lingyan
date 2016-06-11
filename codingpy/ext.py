@@ -21,9 +21,10 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cache import Cache
 from flask.ext.bcrypt import Bcrypt
 from werkzeug._compat import text_type, to_bytes
+from .flask_wechat import WeChat
 
 __all__ = ['moment', 'mail', 'login_manager', 'db',
-           'cache', 'bcrypt', 'keywords_split']
+           'cache', 'bcrypt', 'keywords_split', 'wechat']
 
 
 def keywords_split(keywords):
@@ -266,6 +267,7 @@ db = SQLAlchemy()
 moment = Moment()
 cache = CodingpyCache()
 bcrypt = Bcrypt()
+wechat = WeChat()
 
 login_manager = LoginManager()
 

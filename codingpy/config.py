@@ -11,7 +11,7 @@ datadir = 'data'
 
 
 class Config:
-    SITE_NAME = 'codingpy | 编程派'
+    SITE_NAME = 'LingYan | 凌言'
     SECRET_KEY = os.urandom(32)
     DEBUG_TB_INTERCEPT_REDIRECTS = False
 
@@ -22,12 +22,17 @@ class Config:
     BODY_FORMAT = os.getenv('BODY_FORMAT')  # or 'html'
 
     # mail setup
-    MAIL_SERVER = 'smtp.126.com'
-    MAIL_PORT = 25
+    # 服务器名称: smtp-mail.outlook.com
+    # 端口: 587
+    # 加密方法: TLS
+    MAIL_SERVER = 'smtp-mail.outlook.com'
+    MAIL_PORT = 587
+    MAIL_USE_SSL = False
+    MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    MAIL_SUBJECT_PREFIX = '[CODINGPY]'
-    MAIL_SENDER = 'CODINGPY Admin <codingpy@126.com>'
+    MAIL_SUBJECT_PREFIX = '[凌言]'
+    MAIL_SENDER = 'yangyongli@outlook.com'
 
     APP_ADMIN = os.environ.get('CODINGPY_ADMIN')
 

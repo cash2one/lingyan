@@ -8,6 +8,11 @@ from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.assets import Environment, Bundle
 from codingpy import *
 
+try:
+    import local_config
+except:
+    pass
+
 app = create_app(os.environ.get('APP_CONFIG') or 'default')
 
 manager = Manager(app)
