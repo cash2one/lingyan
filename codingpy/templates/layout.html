@@ -7,9 +7,9 @@
     <title>{% block title %}{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="baidu-site-verification" content="UF7rINUv36" />
+{#    <meta name="baidu-site-verification" content="UF7rINUv36" />#}
     <meta name="applicable-device" content="pc,mobile">
-    <meta name="baidu_union_verify" content="b175c347eed9e053d8041ca6bddf53e7">
+{#    <meta name="baidu_union_verify" content="b175c347eed9e053d8041ca6bddf53e7">#}
 
 	{% block metas %}
   {% if category %}
@@ -19,11 +19,11 @@
     <meta name="keywords" content="{{ tag.seokey }}">
     <meta name="description" content="{{ tag.seodesc }}">
     {% else %}
-    <meta name="keywords" content="Python, Python资讯, Python基础教程, Python学习笔记, Python电子书, Python视频教程, Python编程练习, Python Django, Python Flask, Python Tutorials, Python Video Tutorials Download">
-    <meta name="description" content="分享有关Python的最新资讯、原创编译教程、编程练习题、读书笔记和下载资源">    
+    <meta name="keywords" content="">
+    <meta name="description" content="">    
   {% endif %}
 
-	<meta name="author" content="EarlGrey@codingpy.com">
+{#	<meta name="author" content="EarlGrey@codingpy.com">#}
 	{% endblock metas %}
 	{% block styles %}	
     {% assets "home_css" %}

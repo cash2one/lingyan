@@ -2,9 +2,9 @@
 
 
 {% block title %}
-{% if 'category' in request.url  %}{{ category.name }} | 编程派
-{% elif 'tag' in request.url %} {{ tag.name }} | 编程派
-{% else %} 编程派 | Coding Python
+{% if 'category' in request.url  %}{{ category.name }}
+{% elif 'tag' in request.url %} {{ tag.name }}
+{% else %}
 {% endif %}
 {% endblock title %}
 
@@ -16,13 +16,13 @@
     {% endif %}
 
 </div>
-<div class="ui container warning message">
-  <i class="close icon"></i>
-  <div class="header">
-    为更好地服务大家，本站近期将进行备案。
-  </div>
-  备案期间，将启用二级域名 <a href="http://blog.codingpy.com/">blog.codingpy.com</a>，如主站无法访问，请访问新的二级域名。
-</div>
+{#<div class="ui container warning message">#}
+{#  <i class="close icon"></i>#}
+{#  <div class="header">#}
+{#    为更好地服务大家，本站近期将进行备案。#}
+{#  </div>#}
+{#  备案期间，将启用二级域名 <a href="http://blog.codingpy.com/">blog.codingpy.com</a>，如主站无法访问，请访问新的二级域名。#}
+{#</div>#}
 {# latest content #}
 <div id="main">
    
