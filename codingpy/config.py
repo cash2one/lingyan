@@ -68,6 +68,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    WECHAT_DEBUG = True
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') \
         or "mysql+pymysql://codingpy:codingpy2016@108.61.182.93:3306/codingpy" or \
@@ -81,6 +82,7 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     # CACHE_DIR = os.path.join(basedir, datadir, 'cache')
     DEBUG = False
+    WECHAT_DEBUG = True
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or \
         "mysql+pymysql://codingpy:codingpy2016@108.61.182.93:3306/codingpy"

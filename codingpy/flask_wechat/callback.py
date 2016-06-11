@@ -3,11 +3,13 @@
 import time
 
 from flask import abort, request, Response
+from flask import current_app
 
 from . import signals
 from . import wechat_blueprint as wechat
 from .messages import WeChatMessageBase, WeChatResponse
 
+logger = current_app.logger
 
 @wechat.route("/<identity>/", methods=["GET", "POST"])
 def callback(identity):
