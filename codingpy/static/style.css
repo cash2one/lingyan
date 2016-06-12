@@ -109,7 +109,9 @@ div.header.item a {
 }
 
 /*main content*/
-
+#main {
+    min-height: 800px;
+}
 
 /*.ui.container {
     margin: 1em 0;

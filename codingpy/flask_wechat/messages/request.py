@@ -1,6 +1,7 @@
-#encoding:utf8
+# encoding:utf8
 
 from . import WeChatMessageBase, WeChatResponse
+
 
 class WeChatRequest(WeChatMessageBase):
     """A request comes from WeChat
@@ -8,7 +9,7 @@ class WeChatRequest(WeChatMessageBase):
     When received a request from wechat server, Flask-WeChat will create a
     WeChatEvent or WeChatMessage instance which inherit from this class.
     """
-    
+
     def reply_text(self, value):
         """A short cut to reply a text message
         
@@ -17,7 +18,7 @@ class WeChatRequest(WeChatMessageBase):
         :returns :class:`flask_wechat.messages.WeChatResponse`
         """
         return self.reply("text", content=value)
-        
+
     def reply_media(self, type, media_id, **kwargs):
         """A short cut to reply media message.
         
@@ -35,7 +36,7 @@ class WeChatRequest(WeChatMessageBase):
         media = kwargs or {}
         media["mediaid"] = media_id
         return self.reply(type, **{type: media})
-        
+
     def reply_article(self, articles):
         """A short cut to reply articles
         
@@ -54,5 +55,5 @@ class WeChatRequest(WeChatMessageBase):
         
         :returns :class:`flask_wechat.messages.WeChatResponse`
         """
-        return WeChatResponse(msgtype=type, fromusername=self.tousername, 
-            tousername=self.fromusername, **kwargs)
+        return WeChatResponse(msgtype=type, fromusername=self.tousername,
+                              tousername=self.fromusername, **kwargs)
