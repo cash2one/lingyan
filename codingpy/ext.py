@@ -21,7 +21,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cache import Cache
 from flask.ext.bcrypt import Bcrypt
 from werkzeug._compat import text_type, to_bytes
-from .flask_wechat import WeChat
+from .flask_wechat import WeChat, wechat_blueprint as wechat_bp
 
 __all__ = ['moment', 'mail', 'login_manager', 'db',
            'cache', 'bcrypt', 'keywords_split', 'wechat']
@@ -268,7 +268,7 @@ moment = Moment()
 cache = CodingpyCache()
 bcrypt = Bcrypt()
 wechat = WeChat()
-
+wechat_blueprint = wechat_bp
 
 
 login_manager = LoginManager()
