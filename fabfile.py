@@ -23,3 +23,16 @@ def restart():
             run('git reset --hard HEAD')
             run('git pull')
         run('supervisorctl restart codingpy')
+
+def stop():
+    env.host_string = HOST_STRING
+    with cd('/home/flask/source/codingpy'):
+        run('service nginx stop')
+        run('supervisorctl stop codingpy')
+        
+def pull():
+    env.host_string = HOST_STRING
+    with cd('/home/flask/source/codingpy'):
+        with shell_env(MODE='PRODUCTION'):
+            run('git reset --hard HEAD')
+            run('git pull')

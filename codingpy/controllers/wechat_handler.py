@@ -41,14 +41,14 @@ def codingpy(message):
     article1 = dict(
         Title="CodingPy网站初始化",
         Description="下了它的代码,在本地跑一下",
-        PicUrl="http://seopic.699pic.com/photo/00034/8696.jpg_wh1200.jpg",
+        PicUrl="http://yangyongli.com/static/images/python-favico.ico",
         Url="http://yangyongli.com/article/initial_site/"
     )
 
     article2 = dict(
         Title="试试别的东西",
         Description="下了它的代码,在本地跑一下",
-        PicUrl="http://seopic.699pic.com/photo/00037/4836.jpg_wh1200.jpg",
+        PicUrl="http://yangyongli.com/static/images/flask.png",
         Url="http://yangyongli.com/article/initial_site/"
     )
     return message.reply_article([article1, article2])
