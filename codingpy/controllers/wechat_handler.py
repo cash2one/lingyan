@@ -39,16 +39,16 @@ def hello(message):
 @wechat.handler(wechat_identity, filters.message.startswith("codingpy"))
 def codingpy(message):
     article1 = dict(
-        Title="CodingPy网站初始化",
-        Description="下了它的代码,在本地跑一下",
-        PicUrl="http://yangyongli.com/static/images/python-favico.ico",
-        Url="http://yangyongli.com/article/initial_site/"
+        title="CodingPy网站初始化",
+        description="下了它的代码,在本地跑一下",
+        picurl="http://yangyongli.com/static/images/python-favico.ico",
+        url="http://yangyongli.com/article/initial_site/"
     )
 
     article2 = dict(
-        Title="试试别的东西",
-        Description="下了它的代码,在本地跑一下",
-        PicUrl="http://yangyongli.com/static/images/flask.png",
-        Url="http://yangyongli.com/article/initial_site/"
+        title="试试别的东西",
+        description="下了它的代码,在本地跑一下",
+        picurl="http://yangyongli.com/static/images/flask.png",
+        url="http://yangyongli.com/article/initial_site/"
     )
     return message.reply_article([article1, article2])
