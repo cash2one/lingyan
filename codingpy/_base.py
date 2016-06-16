@@ -71,6 +71,9 @@ def register_routes(app):
     app.register_blueprint(site.bp, url_prefix='')
     app.register_blueprint(account.bp, url_prefix='/account')
 
+    csrf.exempt(site.bp)
+    csrf.exempt(account.bp)
+
 
 def register_managers(app):
 

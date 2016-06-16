@@ -10,8 +10,8 @@ from ..ext import db
 from ..models import User
 from ..forms import LoginForm, RegistrationForm
 
-bp = Blueprint('account', __name__)
 
+bp = Blueprint('account', __name__)
 
 @bp.route('/login/', methods=["GET", "POST"])
 def login():
