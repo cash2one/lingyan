@@ -54,13 +54,20 @@ def codingpy(message):
     return message.reply_article([article1, article2])
 
 
-class TextMessage(filters.Filter):
-    def __call__(self, message):
-        return message.msgtype != "event"
+def database_filter():
+    def decorated_func(message):
+        if message.content == "hi":
+            return True
+        return False
+    return decorated_func
 
-    def database(self):
-        def decorated_func(message):
-            rv = self.typeof("text")(message)
-            return rv
-        return decorated_func
+def database_find(message):
+    if message.content == "hi":
+        return True
+    return False
+
+@wechat.handler(wechat_identity, database_find)
+def database_handler(message):
+    content = message.content
+    return message.reply_text("database response for: " + content)
 
