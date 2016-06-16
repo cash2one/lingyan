@@ -4,7 +4,7 @@ from functools import reduce
 import re
 from .messages import WeChatRequest
 
-__all__ = ["all", "and_", "event", "message", "or_"]
+__all__ = ["all", "and_", "event", "message", "or_", "Filter"]
 
 _typeof = lambda t: lambda m: m.msgtype==t
 

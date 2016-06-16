@@ -923,3 +923,15 @@ class Comment(db.Model):
     # def on_changed_body(target, value, oldvalue, initiator):
     #     allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code',
     #                     'em', 'i', 'strong']
+
+
+
+class WechatTextMessage(db.Model):
+    __tablename__ = 'wechat_text_messages'
+    id = db.Column(db.Integer, primary_key=True)
+    request = db.Column(db.String(128), unique=True, nullable=False)
+    response = db.Column(db.Text)
+    scene = db.Column(db.String(128), nullable=True)
+    created_at = db.Column(db.DateTime, index=True, default=datetime.now)
+    
+    

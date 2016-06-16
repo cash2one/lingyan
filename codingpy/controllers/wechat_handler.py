@@ -52,3 +52,15 @@ def codingpy(message):
         url="http://yangyongli.com/article/initial_site/"
     )
     return message.reply_article([article1, article2])
+
+
+class TextMessage(filters.Filter):
+    def __call__(self, message):
+        return message.msgtype != "event"
+
+    def database(self):
+        def decorated_func(message):
+            rv = self.typeof("text")(message)
+            return rv
+        return decorated_func
+

@@ -6,13 +6,15 @@ import os.path as op
 from flask import flash, redirect, url_for, request
 from flask.ext.login import current_user, login_required
 from flask.ext.admin import Admin, AdminIndexView, expose
+
+
 # from flask.ext.login import current_user
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask.ext.admin.actions import action
 from flask_admin.form import ImageUploadField
 
-from .models import Article, User, Category, Tag, Topic, db
+from .models import Article, User, Category, Tag, Topic, db,WechatTextMessage
 from .ext import cache
 from .config import Config
 from .utils.helpers import baidu_ping, notify_baidu
@@ -29,12 +31,11 @@ def cache_delete(key):
 
 
 class CodingpyAdmin(AdminIndexView):
-
     @expose('/')
     @login_required
     @admin_required
     def index(self):
-        latest_articles = Article.query.\
+        latest_articles = Article.query. \
             order_by(Article.created_at.desc()).limit(5)
 
         return self.render('admin/index.html', latest_articles=latest_articles)
@@ -48,11 +49,10 @@ class CodingpyAdmin(AdminIndexView):
 
 
 class ArticleAdmin(ModelView):
-
     @expose('/<article_id>/')
     def preview(self, article_id):
         article = Article.query.get_or_404(article_id)
-        related_articles = Article.query.search(article.keywords).\
+        related_articles = Article.query.search(article.keywords). \
             filter(Article.id != article.id).limit(3)
 
         _base_query = Article.query.public()
@@ -62,10 +62,11 @@ class ArticleAdmin(ModelView):
 
         # recommended articles top 5
         recommended_articles = _base_query.filter_by(recommended=True).limit(5)
-        popular_articles = _base_query.\
+        popular_articles = _base_query. \
             order_by(Article.views.desc()).limit(5)
 
         from sqlalchemy.sql.expression import func
+
         random_articles = _base_query.order_by(func.random()).limit(5)
 
         return self.render('article.html',
@@ -185,7 +186,6 @@ class ArticleAdmin(ModelView):
 
 
 class CategoryAdmin(ModelView):
-
     # create_template = "admin/model/a_create.html"
     # edit_template = "admin/model/a_edit.html"
 
@@ -234,7 +234,6 @@ class CategoryAdmin(ModelView):
 
 
 class UserAdmin(ModelView):
-
     column_list = ('email', 'username', 'name', 'role',
                    'confirmed', 'last_seen')
 
@@ -264,7 +263,6 @@ class UserAdmin(ModelView):
 
 
 class TagAdmin(ModelView):
-
     # create_template = "admin/a_create.html"
     # edit_template = "admin/a_edit.html"
 
@@ -308,7 +306,6 @@ class TagAdmin(ModelView):
 
 
 class TopicAdmin(ModelView):
-
     create_template = "admin/a_create.html"
     edit_template = "admin/a_edit.html"
 
@@ -350,3 +347,28 @@ admin.add_view(UserAdmin(User, db.session, name='用户'))
 admin.add_view(TagAdmin(Tag, db.session, name='标签'))
 admin.add_view(TopicAdmin(Topic, db.session, name='专题'))
 admin.add_view(FileAdmin(file_path, '/static/', name='文件'))
+
+
+class WechatTextMessageAdmin(ModelView):
+    create_template = "admin/a_create.html"
+    edit_template = "admin/a_edit.html"
+
+    column_list = ('request', 'response', 'scene')
+
+    form_excluded_columns = ('created_at',)
+
+    column_searchable_list = ('request', 'response', 'scene')
+
+    column_labels = dict(
+        request=('请求'),
+        response=('响应'),
+        scene=('场景'),
+    )
+
+    form_widget_args = {
+        'request': {'style': 'width:320px;'},
+        'response': {'style': 'width:320px;'},
+        'scene': {'style': 'width:320px;'},
+    }
+
+admin.add_view(WechatTextMessageAdmin(WechatTextMessage, db.session, name='微信文本'))
