@@ -14,11 +14,13 @@ from .ext import (db, moment, cache, login_manager, bcrypt, wechat, wechat_bluep
 from .config import config
 from .admins import admin
 
-__all__ = ['create_app']
+__all__ = ['create_app', 'app_csrf']
 
 csrf = CsrfProtect()
 # toolbar = DebugToolbarExtension()
 
+def app_csrf():
+    return csrf
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -30,7 +32,7 @@ def create_app(config_name):
     # mail.init_app(app)
     moment.init_app(app)
     csrf.init_app(app)
-    # csrf.exempt(wechat_blueprint)
+    csrf.exempt(wechat_blueprint)
     # toolbar.init_app(app)
 
     cache.init_app(app)

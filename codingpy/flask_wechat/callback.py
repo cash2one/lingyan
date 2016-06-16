@@ -7,9 +7,10 @@ from flask import abort, request, Response
 from . import signals
 from . import wechat_blueprint as wechat
 from .messages import WeChatMessageBase, WeChatResponse
+from flask import current_app
 
 from flask_wtf.csrf import CsrfProtect
-csrf = CsrfProtect()
+csrf = CsrfProtect(current_app)
 
 @csrf.exempt
 @wechat.route("/<identity>/", methods=["GET", "POST"])
