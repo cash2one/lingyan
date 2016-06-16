@@ -5,6 +5,8 @@ import os
 
 from ..ext import wechat
 from ..flask_wechat import filters
+from ..ext import db
+from ..models import WechatTextMessage
 
 
 # http://flask-wechat.readthedocs.io/zh_CN/latest/docs/getting_started.html
@@ -62,12 +64,26 @@ def database_filter():
     return decorated_func
 
 def database_find(message):
-    if message.content == "hi":
-        return True
+    # if message.content == "hi":
+    #     return True
+    try:
+        text = message.content
+        text_message = WechatTextMessage.query.filter(WechatTextMessage.request == text).first()
+        if text_message:
+            return True
+    except Exception as e:
+        pass
+
     return False
 
 @wechat.handler(wechat_identity, database_find)
 def database_handler(message):
-    content = message.content
-    return message.reply_text("database response for: " + content)
+    text = message.content
+    try:
+        text_message = WechatTextMessage.query.filter(WechatTextMessage.request == text).first()
+        if text_message:
+            return message.reply_text(text_message.response)
+    except Exception as e:
+        pass
+    return message.reply_text("不知道怎么回应: " + text)
 
