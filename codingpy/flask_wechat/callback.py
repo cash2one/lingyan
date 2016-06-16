@@ -8,6 +8,10 @@ from . import signals
 from . import wechat_blueprint as wechat
 from .messages import WeChatMessageBase, WeChatResponse
 
+from flask_wtf.csrf import CsrfProtect
+csrf = CsrfProtect()
+
+@csrf.exempt
 @wechat.route("/<identity>/", methods=["GET", "POST"])
 def callback(identity):
     _send_signal("request_received", identity,

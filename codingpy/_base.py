@@ -30,7 +30,7 @@ def create_app(config_name):
     # mail.init_app(app)
     moment.init_app(app)
     csrf.init_app(app)
-    csrf.exempt(wechat_blueprint)
+    # csrf.exempt(wechat_blueprint)
     # toolbar.init_app(app)
 
     cache.init_app(app)
@@ -71,8 +71,8 @@ def register_routes(app):
     app.register_blueprint(site.bp, url_prefix='')
     app.register_blueprint(account.bp, url_prefix='/account')
 
-    csrf.exempt(site.bp)
-    csrf.exempt(account.bp)
+    # csrf.exempt(site.bp)
+    # csrf.exempt(account.bp)
 
 
 def register_managers(app):
