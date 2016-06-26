@@ -14,7 +14,7 @@ from flask_admin.contrib.fileadmin import FileAdmin
 from flask.ext.admin.actions import action
 from flask_admin.form import ImageUploadField
 
-from .models import Article, User, Category, Tag, Topic, db,WechatTextMessage
+from .models import Article, User, Category, Tag, Topic, db,WechatTextMessage, Book, Volume, Chapter
 from .ext import cache
 from .config import Config
 from .utils.helpers import baidu_ping, notify_baidu
@@ -372,3 +372,103 @@ class WechatTextMessageAdmin(ModelView):
     }
 
 admin.add_view(WechatTextMessageAdmin(WechatTextMessage, db.session, name='微信文本'))
+
+
+
+class BookAdmin(ModelView):
+    # create_template = "admin/model/a_create.html"
+    # edit_template = "admin/model/a_edit.html"
+
+    column_list = ('id', 'name', 'author', 'status')
+
+    column_searchable_list = ('name', 'author', 'description')
+
+    form_excluded_columns = ('id', 'volumes', 'chapters')
+
+    # form_overrides = dict(seodesc=TextAreaField, body=EDITOR_WIDGET)
+
+    column_labels = dict(
+        id=('ID'),
+        name=('名称'),
+        author=('作者'),
+        description=('描述'),
+        thumbnail=('缩略图'),
+        score=('评分'),
+        status=('状态'),
+    )
+
+    form_widget_args = {
+        'name': {'style': 'width:320px;'},
+        'author': {'style': 'width:320px;'},
+        'description': {'style': 'width:320px;'},
+        'thumbnail': {'style': 'width:320px;'},
+        'score': {'style': 'width:320px;'},
+        'status': {'style': 'width:320px;'},
+    }
+
+    form_overrides = dict(thumbnail=ImageUploadField)
+    form_args = {
+        'thumbnail': {
+            'label': '缩略图',
+            'base_path': file_path,
+            'allow_overwrite': True,
+            'relative_path': 'thumbnails/',
+        }
+    }
+
+admin.add_view(BookAdmin(Book, db.session, name='书籍'))
+
+class VolumeAdmin(ModelView):
+    # create_template = "admin/model/a_create.html"
+    # edit_template = "admin/model/a_edit.html"
+
+    column_list = ('book', 'name', 'description')
+
+    column_searchable_list = ('name', 'description')
+
+    form_excluded_columns = ('id', 'chapters')
+
+    # form_overrides = dict(seodesc=TextAreaField, body=EDITOR_WIDGET)
+
+    column_labels = dict(
+        name=('卷名'),
+        book=('书名'),
+        description=('描述'),
+    )
+
+    form_widget_args = {
+        'name': {'style': 'width:320px;'},
+        'book': {'style': 'width:320px;'},
+        'description': {'style': 'width:320px;'},
+    }
+
+admin.add_view(VolumeAdmin(Volume, db.session, name='书卷'))
+
+
+class ChapterAdmin(ModelView):
+    create_template = "admin/a_create.html"
+    edit_template = "admin/a_edit.html"
+
+    column_list = ('book', 'volume', 'name', 'order',)
+
+    form_excluded_columns = ('body_html', )
+
+    column_searchable_list = ('name', 'body')
+
+    column_labels = dict(
+        name=('章名'),
+        book=('书名'),
+        volume=('卷名'),
+        body=('正文'),
+        order=('顺序'),
+    )
+
+    form_widget_args = {
+        'name': {'style': 'width:320px;'},
+        'book': {'style': 'width:320px;'},
+        'volume': {'style': 'width:320px;'},
+        'body': {'style': 'width:680px; height:240px;'},
+        'order': {'class': 'col-md-1'},
+    }
+
+admin.add_view(ChapterAdmin(Chapter, db.session, name='章节'))

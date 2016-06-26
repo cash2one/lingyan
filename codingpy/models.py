@@ -934,4 +934,87 @@ class WechatTextMessage(db.Model):
     scene = db.Column(db.String(128), nullable=True)
     created_at = db.Column(db.DateTime, index=True, default=datetime.now)
     
+    __mapper_args__ = {'order_by': [id.desc()]}
+
+    def __repr__(self):
+        return '<Message %r>' % (self.request)
+
+    def __unicode__(self):
+        return self.request
     
+class Book(db.Model):
+    __tablename__ = 'books'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), nullable=False)
+    thumbnail = db.Column(db.String(255), nullable=True)
+    author = db.Column(db.String(128), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    score = db.Column(db.Integer, default=0)
+    status = db.Column(db.String(128), nullable=True)
+    
+    __mapper_args__ = {'order_by': [id.desc()]}
+
+    def __repr__(self):
+        return '<Book %r>' % (self.name)
+
+    def __unicode__(self):
+        return self.name
+
+class Volume(db.Model):
+    __tablename__ = 'volumes'
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer(), db.ForeignKey('books.id'), nullable=False,)
+    book = db.relationship(Book, backref=db.backref("volumes"))
+    name = db.Column(db.String(128), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    
+    __mapper_args__ = {'order_by': [id.desc()]}
+
+    def __repr__(self):
+        return '<Volume %r>' % (self.name)
+
+    def __unicode__(self):
+        return self.name
+
+class Chapter(db.Model):
+    __tablename__ = 'chapters'
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer(), db.ForeignKey('books.id'), nullable=False,)
+    book = db.relationship(Book, backref=db.backref("chapters"))
+    volume_id = db.Column(db.Integer(), db.ForeignKey('volumes.id'), nullable=True,)
+    volume = db.relationship(Volume, backref=db.backref("chapters"))
+    name = db.Column(db.String(128), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    body_html = db.Column(db.Text, nullable=False)
+    order = db.Column(db.Integer(), default=0)
+
+    __mapper_args__ = {'order_by': [id.desc()]}
+
+    def __repr__(self):
+        return '<Chapter %r>' % (self.name)
+
+    def __unicode__(self):
+        return self.name
+
+    @staticmethod
+    def on_changed_body(target, value, oldvalue, initiator):
+        if BODY_FORMAT == 'html':
+            target.body_html = value
+        else:
+            target.body_html = markitup(value)
+
+db.event.listen(Chapter.body, 'set', Chapter.on_changed_body)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
